@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block start %}
+
+<body>
+  <div class="container mt-5">
+    <form
+      class="col-6 mx-auto card p-3 shadow-lg"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <h2>Add Receipe</h2>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Receipe name</label>
+        <input
+          name="receipe_name"
+          required
+          type="text"
+          type="text"
+          class="form-control"
+          placeholder="Enter receipe name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label"
+          >Receipe description</label
+        >
+
+        <textarea
+          class="form-control"
+          name="receipe_description"
+          id=""
+          cols="30"
+          rows="2"
+          required
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="exampleCheck1">Receipe image</label>
+        <input name="receipe_image" type="file" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">add receipe</button>
+    </form>
+
+
+    <div class="mt-5">
+      <div class="mx-auto col-6">
+        <form action="">
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Search Food</label>
+          <input type="text" name="search" class="form-control" >
+
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- {{receipes}} -->
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Receipe name</th>
+          <th scope="col">Receipe Desc</th>
+          <th scope="col">Image</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for receipe in receipes %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{receipe.receipe_name}}</td>
+          <td>{{receipe.receipe_description}}</td>
+          <td>
+            <img
+              src="/static/{{receipe.receipe_image}}"
+              style="height: 100px; width: 100px;"
+            />
+          </td>
+          <td style="display: flex; flex-direction: column; gap: 25px;" >
+            <a href="/delete-receipe/{{receipe.id}}/" class="btn btn-danger">Delete</a>
+            <!--******here href me delete_receipe function ka url dale hai******** -->
+            <a href="/update-receipe/{{receipe.id}}/" class="btn btn-success">Update</a>
+
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+{% endblock %}
+
+<!-- jbb hme backend se frontend me data bhejna hota hai toh context ka use krte hai  -->
+
+<!-- bt hme fontend se backend me data bhejna hota hai toh hme post method ka use krte hai -->
+
+<!-- enctype="multipart/form-data =>   jbb koi form ko frontend se backend me bhejna ho toh -->
+
+<!-- filter me return hoti hai list me more than one ane ki possibility hoti hai -->
+
+<!-- slug url -->
+<!-- foreign key me value ni jata hai object jata hai -->
+
+<!-- authenticate ek aisa fxn hai jo hme ek username and password check krke ek boolean value btata hai -->
+
+<!-- session is just like if once we login any website then ek limited tme tkk login hota hai again hme login ni krna pdta -->
